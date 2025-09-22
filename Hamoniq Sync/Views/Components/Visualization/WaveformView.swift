@@ -2,7 +2,7 @@
 //  WaveformView.swift
 //  Hamoniq Sync
 //
-//  Created by Claude on 20/09/2025.
+//  Created by Justin Adjei on 20/09/2025.
 //
 
 import SwiftUI

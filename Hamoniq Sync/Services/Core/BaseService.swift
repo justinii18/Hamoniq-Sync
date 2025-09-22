@@ -25,9 +25,10 @@ class BaseService: ServiceProtocol, ObservableObject {
     }
     
     deinit {
-        Task {
-            await shutdown()
-        }
+        // Synchronously clean up resources to avoid retain cycles
+        // Note: We can't use async operations in deinit, so we do basic cleanup
+        cancellables.removeAll()
+        // Note: We can't modify @Published properties in deinit due to MainActor requirements
     }
     
     // MARK: - ServiceProtocol Implementation
@@ -206,6 +207,11 @@ class CancellableService: ProgressReportingService, CancellableServiceProtocol {
     @Published private(set) var isCancelled: Bool = false
     
     private var currentTask: Task<Void, Never>?
+    
+    deinit {
+        currentTask?.cancel()
+        currentTask = nil
+    }
     
     // MARK: - Cancellation
     

@@ -383,8 +383,8 @@ final class ProjectService: ObservableService<ProjectService.State>, DataService
             project.updateLastOpenedDate()
             dataController.save()
             
-            Task {
-                await loadRecentProjects()
+            Task { [weak self] in
+                await self?.loadRecentProjects()
             }
         }
     }

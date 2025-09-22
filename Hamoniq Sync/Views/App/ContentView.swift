@@ -11,7 +11,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var dataController: DataController
-    @StateObject private var appViewModel: AppViewModel
+    @EnvironmentObject private var appViewModel: AppViewModel
     
     // Initialize services
     @StateObject private var projectService: ProjectService
@@ -29,7 +29,6 @@ struct ContentView: View {
         self._projectService = StateObject(wrappedValue: projectService)
         self._mediaService = StateObject(wrappedValue: mediaService)
         self._syncService = StateObject(wrappedValue: syncService)
-        self._appViewModel = StateObject(wrappedValue: AppViewModel(dataController: dataController))
     }
 
     var body: some View {
@@ -44,7 +43,6 @@ struct ContentView: View {
                 SplashScreenView()
             }
         }
-        .environmentObject(appViewModel)
         .environmentObject(projectService)
         .environmentObject(mediaService)
         .environmentObject(syncService)
@@ -292,7 +290,7 @@ struct WorkspaceDetailView: View {
             MediaImportView()
         case .sync:
             if appViewModel.hasSelectedProject {
-                SyncWorkspaceView()
+                SyncWorkspaceView(project: appViewModel.state.selectedProject)
             } else {
                 EmptyProjectView(message: "Select a project to begin syncing")
             }
@@ -315,13 +313,6 @@ struct WorkspaceDetailView: View {
 // MARK: - Placeholder Views
 
 
-struct SyncWorkspaceView: View {
-    var body: some View {
-        Text("Sync Workspace View")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .foregroundColor(.secondary)
-    }
-}
 
 struct SyncResultsView: View {
     var body: some View {
