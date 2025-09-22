@@ -139,3 +139,12 @@ final class Project {
         updateModificationDate()
     }
 }
+
+// MARK: - Searchable Conformance
+
+extension Project: Searchable {
+    var searchableContent: String {
+        let tagString = tags.joined(separator: " ")
+        return "\(name) \(projectDescription) \(projectType.rawValue) \(tagString)"
+    }
+}

@@ -314,63 +314,6 @@ struct WorkspaceDetailView: View {
 
 // MARK: - Placeholder Views
 
-struct ProjectBrowserView: View {
-    @EnvironmentObject private var projectService: ProjectService
-    @EnvironmentObject private var appViewModel: AppViewModel
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Projects")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                
-                Spacer()
-                
-                Button("New Project") {
-                    appViewModel.showNewProjectSheet()
-                }
-                .buttonStyle(.borderedProminent)
-            }
-            .padding()
-            
-            if projectService.currentState.projects.isEmpty {
-                VStack(spacing: 20) {
-                    Image(systemName: "folder.badge.plus")
-                        .font(.system(size: 50))
-                        .foregroundColor(.secondary)
-                    
-                    Text("No Projects Yet")
-                        .font(.title2)
-                        .fontWeight(.medium)
-                    
-                    Text("Create your first project to get started with Harmoniq Sync")
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                    
-                    Button("Create Project") {
-                        appViewModel.showNewProjectSheet()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                // Project list would go here
-                Text("Project list coming soon...")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .foregroundColor(.secondary)
-            }
-        }
-    }
-}
-
-struct MediaImportView: View {
-    var body: some View {
-        Text("Media Import View")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .foregroundColor(.secondary)
-    }
-}
 
 struct SyncWorkspaceView: View {
     var body: some View {
