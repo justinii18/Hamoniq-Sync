@@ -1,0 +1,27 @@
+# HarmoniqSyncCoreConfig.cmake
+# Configuration file for the HarmoniqSyncCore package
+
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Find required dependencies
+find_dependency(Threads REQUIRED)
+
+# Platform-specific dependencies
+if(APPLE)
+    find_library(ACCELERATE_FRAMEWORK Accelerate REQUIRED)
+    find_library(COREAUDIO_FRAMEWORK CoreAudio REQUIRED)
+endif()
+
+# Include the targets file
+include("${CMAKE_CURRENT_LIST_DIR}/HarmoniqSyncCoreTargets.cmake")
+
+# Provide variables for consumers
+set(HarmoniqSyncCore_VERSION @PROJECT_VERSION@)
+set(HarmoniqSyncCore_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(HarmoniqSyncCore_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(HarmoniqSyncCore_VERSION_PATCH @PROJECT_VERSION_PATCH@)
+
+# Check that the targets exist
+check_required_components(HarmoniqSyncCore)

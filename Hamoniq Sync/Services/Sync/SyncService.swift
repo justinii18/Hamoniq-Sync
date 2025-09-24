@@ -250,7 +250,7 @@ final class SyncService: CancellableService, SyncServiceProtocol {
         configuration: SyncParameters
     ) async throws -> SyncResultModel {
         
-        // Simulate processing time
+        // Simulate processing time for now
         for i in 0...10 {
             if isCancelled {
                 throw SyncServiceError.operationCancelled
@@ -263,7 +263,7 @@ final class SyncService: CancellableService, SyncServiceProtocol {
         }
         
         // For now, create a mock result
-        // In the real implementation, this would call the C++ sync engine
+        // TODO: Replace with real sync engine implementation
         let mockResult = createMockSyncResult(
             sourceClipID: reference.id,
             targetClipID: target.id,
@@ -388,6 +388,7 @@ final class SyncService: CancellableService, SyncServiceProtocol {
                configuration.confidenceThreshold <= 1.0 &&
                !configuration.preferredMethods.isEmpty
     }
+    
 }
 
 // MARK: - Sync Parameters

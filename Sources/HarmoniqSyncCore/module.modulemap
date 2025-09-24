@@ -1,0 +1,4 @@
+module HarmoniqSyncCore {
+    header "include/harmoniq_sync.h"
+    export *
+}

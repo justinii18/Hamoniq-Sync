@@ -1,0 +1,2 @@
+/usr/bin/ar qc libHarmoniqSyncCore.a CMakeFiles/HarmoniqSyncCore.dir/src/audio_processor.cpp.o CMakeFiles/HarmoniqSyncCore.dir/src/alignment_engine.cpp.o CMakeFiles/HarmoniqSyncCore.dir/src/c_bridge.cpp.o
+/usr/bin/ranlib libHarmoniqSyncCore.a
