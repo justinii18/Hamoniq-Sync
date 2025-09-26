@@ -3,12 +3,15 @@
 //  HarmoniqSyncCore
 //
 //  High-performance audio feature extraction for sync algorithms
+//  Uses Apple Accelerate framework for optimal performance on Apple Silicon
 //
 
 #include "../include/audio_processor.hpp"
+#include <Accelerate/Accelerate.h>
 #include <algorithm>
 #include <cmath>
 #include <numeric>
+#include <stdexcept>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -16,36 +19,146 @@
 
 namespace HarmoniqSync {
 
+// MARK: - Constants
+
+static const size_t MAX_FRAME_SIZE = 8192;
+static const size_t MAX_AUDIO_LENGTH = 10000000; // ~4 minutes at 44.1kHz
+static const double MIN_SAMPLE_RATE = 8000.0;
+static const double MAX_SAMPLE_RATE = 192000.0;
+
 // MARK: - Lifecycle
 
-AudioProcessor::AudioProcessor() : sampleRate(0.0) {
-    // Reserve initial capacity for working buffers
-    workingBuffer.reserve(8192);
-    fftBuffer.reserve(4096);
-    windowFunction.reserve(4096);
+AudioProcessor::AudioProcessor() 
+    : sampleRate(0.0)
+    , fftSetup(nullptr)
+    , log2MaxFrameSize(0)
+{
+    // Pre-allocate working buffers to avoid runtime allocation
+    workingBuffer.reserve(MAX_FRAME_SIZE);
+    fftBuffer.reserve(MAX_FRAME_SIZE / 2);
+    windowFunction.reserve(MAX_FRAME_SIZE);
+    
+    // Initialize Apple Accelerate FFT setup for maximum expected frame size
+    log2MaxFrameSize = static_cast<vDSP_Length>(log2(MAX_FRAME_SIZE));
+    fftSetup = vDSP_create_fftsetup(log2MaxFrameSize, FFT_RADIX2);
+    
+    if (!fftSetup) {
+        throw std::runtime_error("Failed to initialize Apple Accelerate FFT setup");
+    }
+    
+    // Initialize split complex buffer for FFT operations
+    splitComplex.realp = nullptr;
+    splitComplex.imagp = nullptr;
 }
 
-AudioProcessor::~AudioProcessor() = default;
+AudioProcessor::~AudioProcessor() {
+    // Clean up Apple Accelerate FFT setup
+    if (fftSetup) {
+        vDSP_destroy_fftsetup(fftSetup);
+        fftSetup = nullptr;
+    }
+}
+
+// MARK: - Move Semantics
+
+AudioProcessor::AudioProcessor(AudioProcessor&& other) noexcept
+    : audioData(std::move(other.audioData))
+    , sampleRate(other.sampleRate)
+    , workingBuffer(std::move(other.workingBuffer))
+    , fftBuffer(std::move(other.fftBuffer))
+    , windowFunction(std::move(other.windowFunction))
+    , fftSetup(other.fftSetup)
+    , log2MaxFrameSize(other.log2MaxFrameSize)
+    , splitComplex(other.splitComplex)
+{
+    // Take ownership of the FFT setup
+    other.fftSetup = nullptr;
+    other.sampleRate = 0.0;
+    other.log2MaxFrameSize = 0;
+    other.splitComplex.realp = nullptr;
+    other.splitComplex.imagp = nullptr;
+}
+
+AudioProcessor& AudioProcessor::operator=(AudioProcessor&& other) noexcept {
+    if (this != &other) {
+        // Clean up our current resources
+        if (fftSetup) {
+            vDSP_destroy_fftsetup(fftSetup);
+        }
+        
+        // Move data from other
+        audioData = std::move(other.audioData);
+        sampleRate = other.sampleRate;
+        workingBuffer = std::move(other.workingBuffer);
+        fftBuffer = std::move(other.fftBuffer);
+        windowFunction = std::move(other.windowFunction);
+        fftSetup = other.fftSetup;
+        log2MaxFrameSize = other.log2MaxFrameSize;
+        splitComplex = other.splitComplex;
+        
+        // Reset other's state
+        other.fftSetup = nullptr;
+        other.sampleRate = 0.0;
+        other.log2MaxFrameSize = 0;
+        other.splitComplex.realp = nullptr;
+        other.splitComplex.imagp = nullptr;
+    }
+    return *this;
+}
 
 // MARK: - Audio Loading
 
 bool AudioProcessor::loadAudio(const float* samples, size_t length, double inputSampleRate, double targetSampleRate) {
-    if (!samples || length == 0 || inputSampleRate <= 0) {
-        return false;
+    // Comprehensive input validation
+    if (!samples) {
+        return false; // Null pointer
+    }
+    
+    if (length == 0) {
+        return false; // Empty audio
+    }
+    
+    if (length > MAX_AUDIO_LENGTH) {
+        return false; // Audio too long
+    }
+    
+    if (inputSampleRate < MIN_SAMPLE_RATE || inputSampleRate > MAX_SAMPLE_RATE) {
+        return false; // Invalid sample rate
+    }
+    
+    // Validate target sample rate if specified
+    if (targetSampleRate > 0 && (targetSampleRate < MIN_SAMPLE_RATE || targetSampleRate > MAX_SAMPLE_RATE)) {
+        return false; // Invalid target sample rate
     }
     
     // Clear previous data
     clear();
     
-    // Copy audio data
-    audioData.assign(samples, samples + length);
-    sampleRate = inputSampleRate;
-    
-    // Resample if needed
-    if (targetSampleRate > 0 && std::abs(targetSampleRate - inputSampleRate) > 1.0) {
-        if (!resampleAudio(targetSampleRate)) {
-            return false;
+    try {
+        // Copy audio data with bounds checking
+        audioData.reserve(length);
+        audioData.assign(samples, samples + length);
+        sampleRate = inputSampleRate;
+        
+        // Validate the copied data for NaN or infinite values
+        for (size_t i = 0; i < length; ++i) {
+            if (!std::isfinite(audioData[i])) {
+                clear(); // Clean up on error
+                return false; // Invalid audio data
+            }
         }
+        
+        // Resample if needed and target sample rate is significantly different
+        if (targetSampleRate > 0 && std::abs(targetSampleRate - inputSampleRate) > 1.0) {
+            if (!resampleAudio(targetSampleRate)) {
+                clear(); // Clean up on error
+                return false;
+            }
+        }
+        
+    } catch (const std::exception&) {
+        clear(); // Clean up on exception
+        return false;
     }
     
     return true;
@@ -53,10 +166,17 @@ bool AudioProcessor::loadAudio(const float* samples, size_t length, double input
 
 void AudioProcessor::clear() {
     audioData.clear();
+    audioData.shrink_to_fit(); // Release memory
     sampleRate = 0.0;
+    
+    // Clear working buffers but maintain capacity for reuse
     workingBuffer.clear();
-    fftBuffer.clear();
+    fftBuffer.clear(); 
     windowFunction.clear();
+    
+    // Reset split complex pointers
+    splitComplex.realp = nullptr;
+    splitComplex.imagp = nullptr;
 }
 
 // MARK: - Feature Extraction
@@ -97,6 +217,46 @@ std::vector<float> AudioProcessor::extractSpectralFlux(int windowSize, int hopSi
     smoothFeatures(spectralFlux, 3);
     
     return spectralFlux;
+}
+
+void AudioProcessor::extractSpectralFlux(const std::vector<std::vector<float>>& spectralFrames,
+                                        std::vector<float>& spectralFlux) const {
+    if (spectralFrames.size() < 2) {
+        spectralFlux.clear();
+        return;
+    }
+    
+    spectralFlux.clear();
+    spectralFlux.reserve(spectralFrames.size() - 1);
+    
+    // Process each consecutive pair of spectral frames
+    for (size_t i = 1; i < spectralFrames.size(); ++i) {
+        const auto& prevFrame = spectralFrames[i - 1];
+        const auto& currFrame = spectralFrames[i];
+        
+        // Ensure frames have the same size
+        size_t frameSize = std::min(prevFrame.size(), currFrame.size());
+        if (frameSize == 0) {
+            spectralFlux.push_back(0.0f);
+            continue;
+        }
+        
+        // Calculate spectral flux as sum of positive differences in log-magnitude
+        float flux = 0.0f;
+        for (size_t bin = 0; bin < frameSize; ++bin) {
+            // Convert to log-magnitude (add small epsilon to avoid log(0))
+            float prevLogMag = std::log(prevFrame[bin] + 1e-10f);
+            float currLogMag = std::log(currFrame[bin] + 1e-10f);
+            
+            // Sum only positive differences
+            float diff = currLogMag - prevLogMag;
+            if (diff > 0) {
+                flux += diff;
+            }
+        }
+        
+        spectralFlux.push_back(flux);
+    }
 }
 
 std::vector<float> AudioProcessor::extractChromaFeatures(int windowSize, int hopSize) const {
@@ -246,44 +406,165 @@ bool AudioProcessor::resampleAudio(double targetSampleRate) {
 }
 
 void AudioProcessor::applyHannWindow(float* data, size_t length) const {
-    // Ensure window function is computed
+    // Ensure window function is computed using vDSP for optimal performance
     if (windowFunction.size() != length) {
         windowFunction.resize(length);
-        for (size_t i = 0; i < length; ++i) {
-            windowFunction[i] = 0.5f * (1.0f - std::cos(2.0f * M_PI * i / (length - 1)));
-        }
+        
+        // Use Apple's optimized Hann window generation
+        vDSP_hann_window(windowFunction.data(), vDSP_Length(length), vDSP_HANN_NORM);
     }
     
-    // Apply window
-    for (size_t i = 0; i < length; ++i) {
-        data[i] *= windowFunction[i];
-    }
+    // Apply window using vectorized multiplication
+    vDSP_vmul(data, 1, windowFunction.data(), 1, data, 1, vDSP_Length(length));
 }
 
 void AudioProcessor::computeFFT(const float* input, size_t inputLength, std::vector<float>& magnitude) const {
-    // Simple DFT implementation for educational purposes
-    // For production use, consider using FFTW or Apple's Accelerate framework
+    // Validate input length is power of 2
+    if (inputLength == 0 || (inputLength & (inputLength - 1)) != 0) {
+        throw std::invalid_argument("FFT length must be power of 2 and > 0");
+    }
     
-    size_t fftSize = inputLength / 2 + 1;
-    magnitude.resize(fftSize);
+    if (inputLength > MAX_FRAME_SIZE) {
+        throw std::invalid_argument("FFT length exceeds maximum frame size");
+    }
+    
+    vDSP_Length log2Length = static_cast<vDSP_Length>(log2(inputLength));
+    size_t halfLength = inputLength / 2;
+    
+    // Prepare magnitude output
+    magnitude.resize(halfLength);
+    
+    // Ensure working buffer is large enough
+    if (workingBuffer.size() < inputLength) {
+        workingBuffer.resize(inputLength);
+    }
     
     // Copy and window the input
-    workingBuffer.assign(input, input + inputLength);
+    std::copy(input, input + inputLength, workingBuffer.begin());
     applyHannWindow(workingBuffer.data(), inputLength);
     
-    // Compute DFT
-    for (size_t k = 0; k < fftSize; ++k) {
-        double real = 0.0, imag = 0.0;
-        double phaseStep = -2.0 * M_PI * k / inputLength;
-        
-        for (size_t n = 0; n < inputLength; ++n) {
-            double phase = phaseStep * n;
-            real += workingBuffer[n] * std::cos(phase);
-            imag += workingBuffer[n] * std::sin(phase);
-        }
-        
-        magnitude[k] = std::sqrt(real * real + imag * imag);
+    // Set up split complex structure using working buffer
+    DSPSplitComplex localSplitComplex;
+    localSplitComplex.realp = workingBuffer.data();
+    localSplitComplex.imagp = workingBuffer.data() + halfLength;
+    
+    // Convert real input to split complex format (interleaved to split)
+    vDSP_ctoz((const DSPComplex*)workingBuffer.data(), 2, &localSplitComplex, 1, halfLength);
+    
+    // Perform forward FFT
+    vDSP_fft_zrip(fftSetup, &localSplitComplex, 1, log2Length, FFT_FORWARD);
+    
+    // Compute magnitude spectrum: sqrt(real^2 + imag^2)
+    vDSP_zvmags(&localSplitComplex, 1, magnitude.data(), 1, halfLength);
+    
+    // Apply scaling for proper normalization
+    float scale = 1.0f / inputLength;
+    vDSP_vsmul(magnitude.data(), 1, &scale, magnitude.data(), 1, halfLength);
+    
+    // Take square root to get magnitude from power
+    int length_int = static_cast<int>(halfLength);
+    vvsqrtf(magnitude.data(), magnitude.data(), &length_int);
+}
+
+void AudioProcessor::computePowerSpectrum(const float* input, size_t inputLength, std::vector<float>& power) const {
+    // Validate input length is power of 2
+    if (inputLength == 0 || (inputLength & (inputLength - 1)) != 0) {
+        throw std::invalid_argument("FFT length must be power of 2 and > 0");
     }
+    
+    if (inputLength > MAX_FRAME_SIZE) {
+        throw std::invalid_argument("FFT length exceeds maximum frame size");
+    }
+    
+    vDSP_Length log2Length = static_cast<vDSP_Length>(log2(inputLength));
+    size_t halfLength = inputLength / 2;
+    
+    // Prepare power output
+    power.resize(halfLength);
+    
+    // Ensure working buffer is large enough
+    if (workingBuffer.size() < inputLength) {
+        workingBuffer.resize(inputLength);
+    }
+    
+    // Copy and window the input
+    std::copy(input, input + inputLength, workingBuffer.begin());
+    applyHannWindow(workingBuffer.data(), inputLength);
+    
+    // Set up split complex structure using working buffer
+    DSPSplitComplex localSplitComplex;
+    localSplitComplex.realp = workingBuffer.data();
+    localSplitComplex.imagp = workingBuffer.data() + halfLength;
+    
+    // Convert real input to split complex format (interleaved to split)
+    vDSP_ctoz((const DSPComplex*)workingBuffer.data(), 2, &localSplitComplex, 1, halfLength);
+    
+    // Perform forward FFT
+    vDSP_fft_zrip(fftSetup, &localSplitComplex, 1, log2Length, FFT_FORWARD);
+    
+    // Compute power spectrum: real^2 + imag^2
+    vDSP_zvmags(&localSplitComplex, 1, power.data(), 1, halfLength);
+    
+    // Apply scaling for proper normalization
+    float scale = 1.0f / (inputLength * inputLength);
+    vDSP_vsmul(power.data(), 1, &scale, power.data(), 1, halfLength);
+}
+
+void AudioProcessor::magnitudeToDb(const std::vector<float>& magnitude, std::vector<float>& db, float minDb) const {
+    if (magnitude.empty()) {
+        db.clear();
+        return;
+    }
+    
+    db.resize(magnitude.size());
+    
+    // Convert to dB: 20 * log10(magnitude)
+    // Using vvlog10f for vectorized log10, then scale by 20
+    std::vector<float> temp = magnitude;
+    
+    // Clamp to minimum value to avoid log(0)
+    float minMagnitude = std::pow(10.0f, minDb / 20.0f);
+    for (float& value : temp) {
+        if (value < minMagnitude) {
+            value = minMagnitude;
+        }
+    }
+    
+    // Vectorized log10
+    int size = static_cast<int>(temp.size());
+    vvlog10f(db.data(), temp.data(), &size);
+    
+    // Scale by 20
+    float scale = 20.0f;
+    vDSP_vsmul(db.data(), 1, &scale, db.data(), 1, temp.size());
+}
+
+void AudioProcessor::powerToDb(const std::vector<float>& power, std::vector<float>& db, float minDb) const {
+    if (power.empty()) {
+        db.clear();
+        return;
+    }
+    
+    db.resize(power.size());
+    
+    // Convert to dB: 10 * log10(power)
+    std::vector<float> temp = power;
+    
+    // Clamp to minimum value to avoid log(0)
+    float minPower = std::pow(10.0f, minDb / 10.0f);
+    for (float& value : temp) {
+        if (value < minPower) {
+            value = minPower;
+        }
+    }
+    
+    // Vectorized log10
+    int size = static_cast<int>(temp.size());
+    vvlog10f(db.data(), temp.data(), &size);
+    
+    // Scale by 10
+    float scale = 10.0f;
+    vDSP_vsmul(db.data(), 1, &scale, db.data(), 1, temp.size());
 }
 
 float AudioProcessor::frequencyToMel(float frequency) {

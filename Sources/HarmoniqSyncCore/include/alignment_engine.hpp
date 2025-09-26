@@ -74,6 +74,18 @@ public:
     /// Hybrid alignment combining multiple methods
     harmoniq_sync_result_t alignHybrid(const AudioProcessor& reference, const AudioProcessor& target);
     
+    // MARK: - Onset Detection (Public for testing)
+    
+    /// Detect onsets from spectral flux using peak picking
+    /// @param spectralFlux Input spectral flux vector
+    /// @param onsets Output vector of onset indices
+    /// @param threshold Peak detection threshold
+    /// @param windowSize Local window size for peak detection
+    void detectOnsets(const std::vector<float>& spectralFlux,
+                     std::vector<size_t>& onsets,
+                     float threshold,
+                     int windowSize) const;
+    
     // MARK: - Batch Processing
     
     /// Align multiple targets against single reference
@@ -108,8 +120,41 @@ private:
     
     CorrelationPeak findBestAlignment(const std::vector<double>& correlation) const;
     
-    /// Calculate confidence score based on correlation statistics
+    /// Three-factor confidence scoring structure
+    struct ConfidenceFactors {
+        double correlationStrength = 0.0;  // Raw peak value normalized by signal energy
+        double peakSharpness = 0.0;        // Ratio of primary peak to average correlation
+        double snr = 0.0;                  // Ratio of primary peak to secondary peak
+    };
+    
+    /// Calculate confidence score based on three-factor system
     double calculateConfidence(const std::vector<double>& correlation, size_t peakIndex) const;
+    
+    /// Calculate individual confidence factors
+    ConfidenceFactors calculateConfidenceFactors(const std::vector<double>& correlation, size_t peakIndex) const;
+    
+    /// Calibration framework for mapping raw scores to [0.0, 1.0] range
+    struct CalibrationParameters {
+        // Correlation strength calibration
+        double corrStrengthScale = 2.0;      // Scale factor for correlation strength
+        double corrStrengthOffset = 0.0;     // Offset for correlation strength
+        
+        // Peak sharpness calibration
+        double sharpnessScale = 10.0;        // Scale factor for peak sharpness
+        double sharpnessOffset = 0.0;        // Offset for peak sharpness
+        
+        // SNR calibration
+        double snrScale = 3.0;               // Scale factor for SNR
+        double snrOffset = 1.0;              // Offset for SNR
+        
+        // Overall confidence weights
+        double strengthWeight = 0.5;         // Weight for correlation strength
+        double sharpnessWeight = 0.3;        // Weight for peak sharpness
+        double snrWeight = 0.2;              // Weight for SNR
+    };
+    
+    /// Apply calibration to normalize confidence factors
+    ConfidenceFactors calibrateFactors(const ConfidenceFactors& rawFactors) const;
     
     /// Calculate signal-to-noise ratio estimate
     double calculateSNREstimate(const std::vector<double>& correlation, size_t peakIndex) const;

@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/Harm
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/opt/homebrew/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -174,6 +184,19 @@ HarmoniqSyncCore/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HarmoniqSyncCore.dir/build.make CMakeFiles/HarmoniqSyncCore.dir/build
 .PHONY : HarmoniqSyncCore/fast
 
+#=============================================================================
+# Target rules for targets named test_audio_processor
+
+# Build rule for target.
+test_audio_processor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_audio_processor
+.PHONY : test_audio_processor
+
+# fast build rule for target.
+test_audio_processor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/build
+.PHONY : test_audio_processor/fast
+
 src/alignment_engine.o: src/alignment_engine.cpp.o
 .PHONY : src/alignment_engine.o
 
@@ -246,6 +269,30 @@ src/c_bridge.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HarmoniqSyncCore.dir/build.make CMakeFiles/HarmoniqSyncCore.dir/src/c_bridge.cpp.s
 .PHONY : src/c_bridge.cpp.s
 
+test/test_audio_processor.o: test/test_audio_processor.cpp.o
+.PHONY : test/test_audio_processor.o
+
+# target to build an object file
+test/test_audio_processor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/test/test_audio_processor.cpp.o
+.PHONY : test/test_audio_processor.cpp.o
+
+test/test_audio_processor.i: test/test_audio_processor.cpp.i
+.PHONY : test/test_audio_processor.i
+
+# target to preprocess a source file
+test/test_audio_processor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/test/test_audio_processor.cpp.i
+.PHONY : test/test_audio_processor.cpp.i
+
+test/test_audio_processor.s: test/test_audio_processor.cpp.s
+.PHONY : test/test_audio_processor.s
+
+# target to generate assembly for a file
+test/test_audio_processor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/test/test_audio_processor.cpp.s
+.PHONY : test/test_audio_processor.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -258,7 +305,9 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... HarmoniqSyncCore"
+	@echo "... test_audio_processor"
 	@echo "... src/alignment_engine.o"
 	@echo "... src/alignment_engine.i"
 	@echo "... src/alignment_engine.s"
@@ -268,6 +317,9 @@ help:
 	@echo "... src/c_bridge.o"
 	@echo "... src/c_bridge.i"
 	@echo "... src/c_bridge.s"
+	@echo "... test/test_audio_processor.o"
+	@echo "... test/test_audio_processor.i"
+	@echo "... test/test_audio_processor.s"
 .PHONY : help
 
 

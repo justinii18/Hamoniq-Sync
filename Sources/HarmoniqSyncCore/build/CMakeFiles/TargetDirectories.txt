@@ -1,4 +1,6 @@
 /Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles/HarmoniqSyncCore.dir
+/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles/test_audio_processor.dir
+/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles/test.dir
 /Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles/edit_cache.dir
 /Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles/rebuild_cache.dir
 /Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles/list_install_components.dir

@@ -8,6 +8,7 @@
 #include "../include/harmoniq_sync.h"
 #include "../include/audio_processor.hpp"
 #include "../include/alignment_engine.hpp"
+#include "../include/sync_engine.hpp"
 #include <memory>
 #include <string>
 #include <vector>
@@ -45,8 +46,6 @@ namespace {
         
         return engineConfig;
     }
-    
-    // Note: mapToApiMethod function removed as it was unused
 }
 
 // MARK: - Core API Implementation
@@ -92,31 +91,22 @@ harmoniq_sync_result_t harmoniq_sync_align(
         engine.setConfig(engineConfig);
         
         // Perform alignment based on method
-        harmoniq_sync_result_t alignResult;
-        
         switch (method) {
             case HARMONIQ_SYNC_SPECTRAL_FLUX:
-                alignResult = engine.alignSpectralFlux(refProcessor, targetProcessor);
-                break;
+                return engine.alignSpectralFlux(refProcessor, targetProcessor);
             case HARMONIQ_SYNC_CHROMA:
-                alignResult = engine.alignChromaFeatures(refProcessor, targetProcessor);
-                break;
+                return engine.alignChromaFeatures(refProcessor, targetProcessor);
             case HARMONIQ_SYNC_ENERGY:
-                alignResult = engine.alignEnergyCorrelation(refProcessor, targetProcessor);
-                break;
+                return engine.alignEnergyCorrelation(refProcessor, targetProcessor);
             case HARMONIQ_SYNC_MFCC:
-                alignResult = engine.alignMFCC(refProcessor, targetProcessor);
-                break;
+                return engine.alignMFCC(refProcessor, targetProcessor);
             case HARMONIQ_SYNC_HYBRID:
-                alignResult = engine.alignHybrid(refProcessor, targetProcessor);
-                break;
+                return engine.alignHybrid(refProcessor, targetProcessor);
             default:
-                alignResult.error = HARMONIQ_SYNC_ERROR_INVALID_INPUT;
-                std::strcpy(alignResult.method, "Unknown");
-                break;
+                result.error = HARMONIQ_SYNC_ERROR_INVALID_INPUT;
+                std::strcpy(result.method, "Unknown");
+                return result;
         }
-        
-        return alignResult;
         
     } catch (const std::exception& e) {
         result.error = HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
@@ -145,21 +135,9 @@ harmoniq_sync_batch_result_t harmoniq_sync_align_batch(
             return batch_result;
         }
         
-        // Allocate results array
-        batch_result.results = (harmoniq_sync_result_t*)std::malloc(sizeof(harmoniq_sync_result_t) * target_count);
-        if (!batch_result.results) {
-            batch_result.error = HARMONIQ_SYNC_ERROR_OUT_OF_MEMORY;
-            return batch_result;
-        }
-        
-        batch_result.count = target_count;
-        batch_result.error = HARMONIQ_SYNC_SUCCESS;
-        
         // Create reference processor once
         AudioProcessor refProcessor;
         if (!refProcessor.loadAudio(reference_audio, ref_length, sample_rate)) {
-            std::free(batch_result.results);
-            batch_result.results = nullptr;
             batch_result.error = HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
             return batch_result;
         }
@@ -173,35 +151,30 @@ harmoniq_sync_batch_result_t harmoniq_sync_align_batch(
         std::vector<AudioProcessor> targetProcessors(target_count);
         for (size_t i = 0; i < target_count; i++) {
             if (!targetProcessors[i].loadAudio(target_audios[i], target_lengths[i], sample_rate)) {
-                // Mark this result as failed
-                batch_result.results[i].error = HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
-                std::strcpy(batch_result.results[i].method, "LoadFailed");
-                continue;
+                // We will continue and let the batch alignment handle the error
             }
         }
         
         // Use batch processing for efficiency
         auto results = engine.alignBatch(refProcessor, targetProcessors, method);
         
-        // Copy results
-        for (size_t i = 0; i < target_count && i < results.size(); i++) {
-            batch_result.results[i] = results[i];
+        // Allocate results array and copy results
+        batch_result.results = (harmoniq_sync_result_t*)std::malloc(sizeof(harmoniq_sync_result_t) * results.size());
+        if (!batch_result.results) {
+            batch_result.error = HARMONIQ_SYNC_ERROR_OUT_OF_MEMORY;
+            return batch_result;
         }
+        
+        std::copy(results.begin(), results.end(), batch_result.results);
+        batch_result.count = results.size();
+        batch_result.error = HARMONIQ_SYNC_SUCCESS;
         
         return batch_result;
         
     } catch (const std::exception& e) {
-        if (batch_result.results) {
-            std::free(batch_result.results);
-            batch_result.results = nullptr;
-        }
         batch_result.error = HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
         return batch_result;
     } catch (...) {
-        if (batch_result.results) {
-            std::free(batch_result.results);
-            batch_result.results = nullptr;
-        }
         batch_result.error = HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
         return batch_result;
     }
@@ -412,6 +385,115 @@ double harmoniq_sync_estimate_processing_time(
             return duration_seconds * 0.4; // ~40% of audio duration (runs all methods)
         default:
             return duration_seconds * 0.1;
+    }
+}
+
+// MARK: - Engine Management API (Sprint 2 Week 3)
+
+harmoniq_sync_engine_t* harmoniq_sync_create_engine(void) {
+    try {
+        auto engine = new SyncEngine();
+        return reinterpret_cast<harmoniq_sync_engine_t*>(engine);
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+void harmoniq_sync_destroy_engine(harmoniq_sync_engine_t* engine) {
+    if (engine) {
+        auto syncEngine = reinterpret_cast<SyncEngine*>(engine);
+        delete syncEngine;
+    }
+}
+
+harmoniq_sync_error_t harmoniq_sync_process(
+    harmoniq_sync_engine_t* engine,
+    const float* reference_samples, size_t ref_count,
+    const float* target_samples, size_t target_count,
+    harmoniq_sync_result_t* result
+) {
+    // Validate inputs
+    if (!engine || !reference_samples || !target_samples || !result) {
+        return HARMONIQ_SYNC_ERROR_INVALID_INPUT;
+    }
+    
+    if (ref_count == 0 || target_count == 0) {
+        return HARMONIQ_SYNC_ERROR_INSUFFICIENT_DATA;
+    }
+    
+    try {
+        auto syncEngine = reinterpret_cast<SyncEngine*>(engine);
+        
+        // Use default sample rate of 44.1kHz for this simplified interface
+        // In production, sample rate should be passed as parameter
+        double sampleRate = 44100.0;
+        
+        // Use spectral flux as default method for this interface
+        // In production, method should be configurable
+        harmoniq_sync_method_t method = HARMONIQ_SYNC_SPECTRAL_FLUX;
+        
+        // Process using the SyncEngine
+        *result = syncEngine->process(
+            reference_samples, ref_count,
+            target_samples, target_count,
+            sampleRate,
+            method
+        );
+        
+        return result->error;
+        
+    } catch (const std::exception& e) {
+        // Create error result
+        *result = {};
+        result->error = HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
+        std::strcpy(result->method, "Exception");
+        return HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
+    } catch (...) {
+        // Create error result
+        *result = {};
+        result->error = HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
+        std::strcpy(result->method, "Unknown");
+        return HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
+    }
+}
+
+harmoniq_sync_error_t harmoniq_sync_set_engine_config(
+    harmoniq_sync_engine_t* engine,
+    const harmoniq_sync_config_t* config
+) {
+    if (!engine || !config) {
+        return HARMONIQ_SYNC_ERROR_INVALID_INPUT;
+    }
+    
+    try {
+        auto syncEngine = reinterpret_cast<SyncEngine*>(engine);
+        
+        // Validate config first
+        auto validationError = syncEngine->validateConfig();
+        if (validationError != HARMONIQ_SYNC_SUCCESS) {
+            return validationError;
+        }
+        
+        syncEngine->setConfig(*config);
+        return HARMONIQ_SYNC_SUCCESS;
+        
+    } catch (...) {
+        return HARMONIQ_SYNC_ERROR_PROCESSING_FAILED;
+    }
+}
+
+harmoniq_sync_config_t harmoniq_sync_get_engine_config(harmoniq_sync_engine_t* engine) {
+    harmoniq_sync_config_t defaultConfig = harmoniq_sync_default_config();
+    
+    if (!engine) {
+        return defaultConfig;
+    }
+    
+    try {
+        auto syncEngine = reinterpret_cast<SyncEngine*>(engine);
+        return syncEngine->getConfig();
+    } catch (...) {
+        return defaultConfig;
     }
 }
 

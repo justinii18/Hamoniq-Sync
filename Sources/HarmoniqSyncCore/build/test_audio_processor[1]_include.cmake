@@ -1,0 +1,5 @@
+if(EXISTS "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/test_audio_processor[1]_tests.cmake")
+  include("/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/test_audio_processor[1]_tests.cmake")
+else()
+  add_test(test_audio_processor_NOT_BUILT test_audio_processor_NOT_BUILT)
+endif()

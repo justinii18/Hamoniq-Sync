@@ -1,0 +1,752 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.xctest/Contents/MacOS/HarmoniqSyncKitPackageTests",
+      "packagePath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit",
+      "productName" : "HarmoniqSyncKitPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.HarmoniqSyncKit-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/sources",
+      "importPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/AudioDecoder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/HarmoniqSyncKit.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Internal/CInterop.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/SyncEngine.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ConfigurationTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ErrorTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/SyncTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "HarmoniqSyncKit",
+      "moduleOutputPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKit.swiftmodule",
+      "objects" : [
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder.swift.o",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit.swift.o",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop.swift.o",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine.swift.o",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes.swift.o",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes.swift.o",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/include/HarmoniqSyncKit-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "harmoniqsynckit"
+      ],
+      "outputFileMapPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKit.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/AudioDecoder.swift",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/HarmoniqSyncKit.swift",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Internal/CInterop.swift",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/SyncEngine.swift",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ConfigurationTypes.swift",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ErrorTypes.swift",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/SyncTypes.swift"
+      ],
+      "tempsPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.HarmoniqSyncKitPackageTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/sources",
+      "importPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKitTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "HarmoniqSyncKitPackageTests",
+      "moduleOutputPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKitPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/include/HarmoniqSyncKitPackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "harmoniqsynckit"
+      ],
+      "outputFileMapPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKitPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.HarmoniqSyncKitTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/sources",
+      "importPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Tests/HarmoniqSyncKitTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKit.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "HarmoniqSyncKitTests",
+      "moduleOutputPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKitTests.swiftmodule",
+      "objects" : [
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/HarmoniqSyncKitTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "harmoniqsynckit"
+      ],
+      "outputFileMapPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/HarmoniqSyncKitTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules/HarmoniqSyncKitTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Tests/HarmoniqSyncKitTests.swift"
+      ],
+      "tempsPath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "HarmoniqSyncKit" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "HarmoniqSyncKit",
+      "-package-name",
+      "harmoniqsynckit",
+      "-c",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/AudioDecoder.swift",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/HarmoniqSyncKit.swift",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Internal/CInterop.swift",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/SyncEngine.swift",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ConfigurationTypes.swift",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ErrorTypes.swift",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/SyncTypes.swift",
+      "-I",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/include/HarmoniqSyncKit-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "harmoniqsynckit",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "HarmoniqSyncKitPackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "HarmoniqSyncKitPackageTests",
+      "-package-name",
+      "harmoniqsynckit",
+      "-c",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/include/HarmoniqSyncKitPackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "harmoniqsynckit",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "HarmoniqSyncKitTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "HarmoniqSyncKitTests",
+      "-package-name",
+      "harmoniqsynckit",
+      "-c",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Tests/HarmoniqSyncKitTests.swift",
+      "-I",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "harmoniqsynckit",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "HarmoniqSyncKit" : [
+
+    ],
+    "HarmoniqSyncKitPackageTests" : [
+      "HarmoniqSyncKitTests",
+      "HarmoniqSyncKit"
+    ],
+    "HarmoniqSyncKitTests" : [
+      "HarmoniqSyncKit"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/AudioDecoder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/HarmoniqSyncKit.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Internal/CInterop.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/SyncEngine.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ConfigurationTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ErrorTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/SyncTypes.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/sources"
+    },
+    "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/sources"
+    },
+    "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/HarmoniqSyncKitTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Tests/HarmoniqSyncKitTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitTests.build/sources"
+    },
+    "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

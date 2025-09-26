@@ -1,0 +1,54 @@
+{
+  "": {
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/master.swiftdeps"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/AudioDecoder.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/AudioDecoder.dia"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/HarmoniqSyncKit.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/HarmoniqSyncKit.dia"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Internal/CInterop.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/CInterop.dia"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/SyncEngine.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncEngine.dia"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ConfigurationTypes.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ConfigurationTypes.dia"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/ErrorTypes.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/ErrorTypes.dia"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/Sources/HarmoniqSyncKit/Types/SyncTypes.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKit.build/SyncTypes.dia"
+  }
+}

@@ -156,7 +156,29 @@ install(FILES
 option(HARMONIQ_BUILD_TESTS "Build unit tests" OFF)
 if(HARMONIQ_BUILD_TESTS)
     enable_testing()
-    add_subdirectory(tests)
+    
+    # Find Google Test
+    find_package(GTest REQUIRED)
+    include(GoogleTest)
+    
+    # Create test executable
+    add_executable(test_audio_processor 
+        test/test_audio_processor.cpp
+    )
+    
+    target_link_libraries(test_audio_processor 
+        HarmoniqSyncCore 
+        GTest::gtest 
+        GTest::gtest_main 
+        ${CMAKE_THREAD_LIBS_INIT}
+    )
+    
+    target_include_directories(test_audio_processor PRIVATE 
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+    )
+    
+    # Discover tests
+    gtest_discover_tests(test_audio_processor)
 endif()
 
 # Benchmarks (optional)

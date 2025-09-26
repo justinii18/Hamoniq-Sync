@@ -64,10 +64,12 @@ CMAKE_BINARY_DIR = "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/Harm
 
 # The main recursive "all" target.
 all: CMakeFiles/HarmoniqSyncCore.dir/all
+all: CMakeFiles/test_audio_processor.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/HarmoniqSyncCore.dir/codegen
+codegen: CMakeFiles/test_audio_processor.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -76,6 +78,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/HarmoniqSyncCore.dir/clean
+clean: CMakeFiles/test_audio_processor.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -109,6 +112,38 @@ CMakeFiles/HarmoniqSyncCore.dir/codegen:
 CMakeFiles/HarmoniqSyncCore.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HarmoniqSyncCore.dir/build.make CMakeFiles/HarmoniqSyncCore.dir/clean
 .PHONY : CMakeFiles/HarmoniqSyncCore.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_audio_processor.dir
+
+# All Build rule for target.
+CMakeFiles/test_audio_processor.dir/all: CMakeFiles/HarmoniqSyncCore.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles" --progress-num=5,6 "Built target test_audio_processor"
+.PHONY : CMakeFiles/test_audio_processor.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_audio_processor.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles" 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_audio_processor.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles" 0
+.PHONY : CMakeFiles/test_audio_processor.dir/rule
+
+# Convenience name for target.
+test_audio_processor: CMakeFiles/test_audio_processor.dir/rule
+.PHONY : test_audio_processor
+
+# codegen rule for target.
+CMakeFiles/test_audio_processor.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncCore/build/CMakeFiles" --progress-num=5,6 "Finished codegen for target test_audio_processor"
+.PHONY : CMakeFiles/test_audio_processor.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test_audio_processor.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_audio_processor.dir/build.make CMakeFiles/test_audio_processor.dir/clean
+.PHONY : CMakeFiles/test_audio_processor.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

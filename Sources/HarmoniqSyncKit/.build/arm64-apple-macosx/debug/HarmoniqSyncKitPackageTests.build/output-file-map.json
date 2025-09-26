@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/master.swiftdeps"
+  },
+  "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner.d",
+    "object": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/jay/Documents/HarmoniqSwift/Hamoniq Sync/Sources/HarmoniqSyncKit/.build/arm64-apple-macosx/debug/HarmoniqSyncKitPackageTests.build/runner.dia"
+  }
+}

@@ -141,6 +141,49 @@ harmoniq_sync_error_t harmoniq_sync_validate_config(const harmoniq_sync_config_t
 /// @return Minimum recommended length in samples
 size_t harmoniq_sync_min_audio_length(harmoniq_sync_method_t method, double sample_rate);
 
+// MARK: - Engine Management
+
+/// Opaque handle to sync engine instance
+typedef struct harmoniq_sync_engine harmoniq_sync_engine_t;
+
+/// Create new sync engine instance
+/// @return Pointer to sync engine or NULL on failure
+harmoniq_sync_engine_t* harmoniq_sync_create_engine(void);
+
+/// Destroy sync engine instance
+/// @param engine Engine instance to destroy
+void harmoniq_sync_destroy_engine(harmoniq_sync_engine_t* engine);
+
+/// Main processing function for end-to-end synchronization
+/// This is the primary function specified in Sprint 2 Week 3
+/// @param engine Sync engine instance
+/// @param reference_samples Reference audio samples (mono, float)
+/// @param ref_count Number of samples in reference audio
+/// @param target_samples Target audio samples (mono, float)
+/// @param target_count Number of samples in target audio
+/// @param result Output sync result
+/// @return Error code (HARMONIQ_SYNC_SUCCESS on success)
+harmoniq_sync_error_t harmoniq_sync_process(
+    harmoniq_sync_engine_t* engine,
+    const float* reference_samples, size_t ref_count,
+    const float* target_samples, size_t target_count,
+    harmoniq_sync_result_t* result
+);
+
+/// Set configuration for sync engine
+/// @param engine Sync engine instance
+/// @param config Configuration parameters
+/// @return Error code
+harmoniq_sync_error_t harmoniq_sync_set_engine_config(
+    harmoniq_sync_engine_t* engine,
+    const harmoniq_sync_config_t* config
+);
+
+/// Get configuration from sync engine
+/// @param engine Sync engine instance
+/// @return Current configuration
+harmoniq_sync_config_t harmoniq_sync_get_engine_config(harmoniq_sync_engine_t* engine);
+
 // MARK: - Version Information
 
 /// Get library version string

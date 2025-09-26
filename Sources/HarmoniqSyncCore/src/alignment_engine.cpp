@@ -435,46 +435,73 @@ AlignmentEngine::CorrelationPeak AlignmentEngine::findBestAlignment(const std::v
     return {maxIndex, maxValue, confidence, secondaryPeakRatio};
 }
 
-double AlignmentEngine::calculateConfidence(const std::vector<double>& correlation, size_t peakIndex) const {
-    if (correlation.empty()) return 0.0;
+AlignmentEngine::ConfidenceFactors AlignmentEngine::calculateConfidenceFactors(const std::vector<double>& correlation, size_t peakIndex) const {
+    ConfidenceFactors factors;
+    
+    if (correlation.empty() || peakIndex >= correlation.size()) {
+        return factors; // Return zeros
+    }
     
     double peakValue = correlation[peakIndex];
     
-    // Calculate mean and standard deviation of correlation
-    double mean = std::accumulate(correlation.begin(), correlation.end(), 0.0) / correlation.size();
-    
-    double variance = 0.0;
+    // Factor 1: Correlation Strength (Peak Height)
+    // Normalize the raw peak value by the energy of the correlation function
+    double correlationEnergy = 0.0;
     for (double val : correlation) {
-        variance += (val - mean) * (val - mean);
+        correlationEnergy += val * val;
     }
-    variance /= correlation.size();
-    double stddev = std::sqrt(variance);
+    correlationEnergy = std::sqrt(correlationEnergy / correlation.size());
     
-    // Confidence based on how many standard deviations above mean the peak is
-    double confidence = 0.0;
-    if (stddev > 0) {
-        double zScore = (peakValue - mean) / stddev;
-        confidence = std::tanh(zScore / 3.0); // Normalize to [0,1] range
+    if (correlationEnergy > 1e-10) {
+        factors.correlationStrength = std::abs(peakValue) / correlationEnergy;
+        factors.correlationStrength = std::max(0.0, std::min(1.0, factors.correlationStrength));
     }
     
-    // Additional confidence boost for sharp, isolated peaks
-    double localMean = 0.0;
-    int localCount = 0;
-    int window = 5;
+    // Factor 2: Peak Sharpness (Clarity)
+    // Ratio of primary peak to average correlation value
+    double mean = std::accumulate(correlation.begin(), correlation.end(), 0.0) / correlation.size();
+    double avgAbsCorrelation = 0.0;
+    for (double val : correlation) {
+        avgAbsCorrelation += std::abs(val);
+    }
+    avgAbsCorrelation /= correlation.size();
     
-    for (int i = -window; i <= window; ++i) {
-        int idx = static_cast<int>(peakIndex) + i;
-        if (idx >= 0 && idx < static_cast<int>(correlation.size()) && idx != static_cast<int>(peakIndex)) {
-            localMean += correlation[idx];
-            localCount++;
+    if (avgAbsCorrelation > 1e-10) {
+        factors.peakSharpness = std::abs(peakValue) / avgAbsCorrelation;
+        // Normalize to [0,1] using tanh to handle extreme values
+        factors.peakSharpness = std::tanh(factors.peakSharpness / 10.0);
+    }
+    
+    // Factor 3: Signal-to-Noise Ratio (Secondary Peak Ratio)
+    // Find second highest peak
+    double secondMaxValue = -1e10;
+    for (size_t i = 0; i < correlation.size(); ++i) {
+        if (i != peakIndex && correlation[i] > secondMaxValue) {
+            secondMaxValue = correlation[i];
         }
     }
     
-    if (localCount > 0) {
-        localMean /= localCount;
-        double localContrast = (peakValue - localMean) / (peakValue + localMean + 1e-10);
-        confidence = std::max(confidence, localContrast);
+    if (secondMaxValue > 1e-10 && std::abs(peakValue) > 1e-10) {
+        factors.snr = std::abs(peakValue) / std::abs(secondMaxValue);
+        // Convert to [0,1] range using logarithmic scaling
+        factors.snr = std::tanh(std::log(factors.snr + 1.0) / 3.0);
+    } else if (std::abs(peakValue) > 1e-10) {
+        factors.snr = 1.0; // Perfect SNR if no secondary peak
     }
+    
+    return factors;
+}
+
+double AlignmentEngine::calculateConfidence(const std::vector<double>& correlation, size_t peakIndex) const {
+    if (correlation.empty()) return 0.0;
+    
+    ConfidenceFactors factors = calculateConfidenceFactors(correlation, peakIndex);
+    
+    // Combine factors into a single score [0.0, 1.0]
+    // Weighted average as specified in Sprint 2 plan
+    double confidence = (factors.correlationStrength * 0.5) + 
+                       (factors.peakSharpness * 0.3) + 
+                       (factors.snr * 0.2);
     
     return std::max(0.0, std::min(1.0, confidence));
 }
@@ -638,6 +665,87 @@ double AlignmentEngine::samplesToSeconds(int64_t samples, double sampleRate) con
 
 int64_t AlignmentEngine::secondsToSamples(double seconds, double sampleRate) const {
     return static_cast<int64_t>(seconds * sampleRate);
+}
+
+void AlignmentEngine::detectOnsets(const std::vector<float>& spectralFlux,
+                                  std::vector<size_t>& onsets,
+                                  float threshold,
+                                  int windowSize) const {
+    onsets.clear();
+    
+    if (spectralFlux.empty() || windowSize <= 0) {
+        return;
+    }
+    
+    int halfWindow = windowSize / 2;
+    
+    // Check if we have enough samples for windowing
+    if (spectralFlux.size() <= static_cast<size_t>(2 * halfWindow)) {
+        return; // Not enough samples for proper onset detection
+    }
+    
+    // Process each potential onset point
+    for (size_t i = halfWindow; i < spectralFlux.size() - halfWindow; ++i) {
+        float currentValue = spectralFlux[i];
+        
+        // Check if current value exceeds threshold
+        if (currentValue < threshold) {
+            continue;
+        }
+        
+        // Calculate local mean for adaptive threshold
+        double localSum = 0.0;
+        int validSamples = 0;
+        
+        for (int j = -halfWindow; j <= halfWindow; ++j) {
+            if (static_cast<int>(i) + j >= 0 && i + j < spectralFlux.size()) {
+                localSum += spectralFlux[i + j];
+                validSamples++;
+            }
+        }
+        
+        double localMean = validSamples > 0 ? localSum / validSamples : 0.0;
+        double adaptiveThreshold = localMean + threshold;
+        
+        // Check if current point is a local maximum and exceeds adaptive threshold
+        bool isLocalMax = true;
+        if (currentValue < adaptiveThreshold) {
+            isLocalMax = false;
+        } else {
+            // Verify it's a local maximum in the window
+            for (int j = -halfWindow; j <= halfWindow; ++j) {
+                if (j == 0) continue; // Skip the center point
+                
+                size_t checkIndex = i + j;
+                if (checkIndex < spectralFlux.size()) {
+                    if (spectralFlux[checkIndex] > currentValue) {
+                        isLocalMax = false;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if (isLocalMax) {
+            // Avoid duplicate detections by checking minimum distance to previous onset
+            bool validOnset = true;
+            if (!onsets.empty()) {
+                size_t lastOnset = onsets.back();
+                if (i - lastOnset < static_cast<size_t>(windowSize / 2)) {
+                    // Too close to previous onset - only keep if current is stronger
+                    if (currentValue > spectralFlux[lastOnset]) {
+                        onsets.pop_back(); // Remove previous weaker onset
+                    } else {
+                        validOnset = false; // Skip current weaker onset
+                    }
+                }
+            }
+            
+            if (validOnset) {
+                onsets.push_back(i);
+            }
+        }
+    }
 }
 
 int64_t AlignmentEngine::calculateMaxOffset(size_t refLength, size_t targetLength) const {

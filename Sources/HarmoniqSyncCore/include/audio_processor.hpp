@@ -11,6 +11,7 @@
 #include <vector>
 #include <memory>
 #include <complex>
+#include <Accelerate/Accelerate.h>
 
 namespace HarmoniqSync {
 
@@ -24,8 +25,8 @@ public:
     // Non-copyable but movable
     AudioProcessor(const AudioProcessor&) = delete;
     AudioProcessor& operator=(const AudioProcessor&) = delete;
-    AudioProcessor(AudioProcessor&&) = default;
-    AudioProcessor& operator=(AudioProcessor&&) = default;
+    AudioProcessor(AudioProcessor&& other) noexcept;
+    AudioProcessor& operator=(AudioProcessor&& other) noexcept;
     
     // MARK: - Audio Loading
     
@@ -50,11 +51,17 @@ public:
     
     // MARK: - Feature Extraction
     
-    /// Extract spectral flux (onset detection)
+    /// Extract spectral flux (onset detection) from audio data
     /// @param windowSize FFT window size (default: 1024)
     /// @param hopSize Hop size (default: windowSize/4)
     /// @return Spectral flux values over time
     std::vector<float> extractSpectralFlux(int windowSize = 1024, int hopSize = 0) const;
+    
+    /// Extract spectral flux from pre-computed spectral frames
+    /// @param spectralFrames Vector of magnitude spectrum frames
+    /// @param spectralFlux Output vector for spectral flux values
+    void extractSpectralFlux(const std::vector<std::vector<float>>& spectralFrames,
+                            std::vector<float>& spectralFlux) const;
     
     /// Extract chroma features (harmonic content)
     /// @param windowSize FFT window size (default: 4096)
@@ -89,6 +96,20 @@ public:
     /// @param targetPeak Target peak amplitude (default: 0.95)
     void normalize(float targetPeak = 0.95f);
     
+    // MARK: - Advanced DSP Methods (Public for testing and advanced usage)
+    
+    /// Compute FFT magnitude spectrum
+    void computeFFT(const float* input, size_t inputLength, std::vector<float>& magnitude) const;
+    
+    /// Compute power spectrum (magnitude squared)
+    void computePowerSpectrum(const float* input, size_t inputLength, std::vector<float>& power) const;
+    
+    /// Convert magnitude spectrum to dB
+    void magnitudeToDb(const std::vector<float>& magnitude, std::vector<float>& db, float minDb = -120.0f) const;
+    
+    /// Convert power spectrum to dB
+    void powerToDb(const std::vector<float>& power, std::vector<float>& db, float minDb = -120.0f) const;
+    
 private:
     // MARK: - Private Members
     
@@ -100,6 +121,11 @@ private:
     mutable std::vector<std::complex<float>> fftBuffer;
     mutable std::vector<float> windowFunction;
     
+    // Apple Accelerate FFT setup
+    FFTSetup fftSetup;
+    vDSP_Length log2MaxFrameSize;
+    mutable DSPSplitComplex splitComplex;
+    
     // MARK: - Private Methods
     
     /// Resample audio data
@@ -107,9 +133,6 @@ private:
     
     /// Apply Hann window
     void applyHannWindow(float* data, size_t length) const;
-    
-    /// Compute FFT magnitude spectrum
-    void computeFFT(const float* input, size_t inputLength, std::vector<float>& magnitude) const;
     
     /// Convert frequency to mel scale
     static float frequencyToMel(float frequency);
